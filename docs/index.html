@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>产品展示 · 四件给她做的东西</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main { max-width:1480px; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin:0 0 56px; }
+  .grid4 a { text-decoration:none; display:block; }
+  .grid4 img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:6px; display:block; }
+  .grid4 b { display:block; font-size:18px; font-weight:600; margin:12px 0 2px; }
+  .grid4 b small { font-weight:400; color:var(--mark); font-size:12px; margin-left:8px; letter-spacing:.08em; }
+  .grid4 span { display:block; color:var(--mute); font-size:14px; }
+  .tabs { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px; }
+  .tabs button { font:inherit; font-size:15px; padding:6px 14px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
+  .tabs button.on { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .tabs a { font-size:14px; padding:6px 10px; color:var(--mute); text-decoration:none; }
+  iframe { width:100%; height:82vh; min-height:600px; border:1px solid var(--line); border-radius:12px; background:#fff; box-shadow:0 10px 40px rgba(42,38,34,.08); }
+  @media (max-width:900px) { .grid4 { grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px) { .grid4 { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span>产品展示 · 二〇二六年十月</span><nav></nav></div>
+
+  <div class="k">给女演员做的四件东西</div>
+  <h1>四件都做好了，都能点。现在给她的是后两件。</h1>
+  <p class="lead">前两件（雷达、挑信）暂时收起，不在给她看的站点和课件里；代码、案例、插画都在，要开随时开。下面四件都是真产品，点卡片切换。</p>
+
+  <div class="grid4">
+    <a href="#" data-go="#/radar"><img src="站点/app/assets/ill-radar.jpg" alt=""><b>AI 换脸雷达<small>1 · 暂时收起</small></b><span>谁在盗用女演员的脸，先发现、再取证、再下架。每天扫，只记元数据，P0 24 小时交律师。</span></a>
+    <a href="#" data-go="#/replies"><img src="站点/app/assets/ill-replies.jpg" alt=""><b>评论挑信<small>2 · 暂时收起</small></b><span>几万条评论里，每天挑出最值得女演员亲自回的几条，草稿起好，女演员点头才发。每天 5 分钟。</span></a>
+    <a href="#" data-go="#/quiz"><img src="站点/app/assets/ill-quiz.jpg" alt=""><b>桐铃小测试<small>3 · 现在给她的</small></b><span>粉丝答 8 道题，得一张「你是哪种桐铃」的卡。题目从超话里来，每周一套，女演员点头才发。</span></a>
+    <a href="#" data-go="#/vibe"><img src="站点/app/assets/ill-vibe.jpg" alt=""><b>桐铃 vibecoding<small>4 · 现在给她的</small></b><span>粉丝一句话，AI 做成能玩的小网页，署粉丝的名。女演员每周点名一个。</span></a>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-h="#/radar">1 雷达</button><button data-h="#/replies">2 挑信</button><button class="on" data-h="#/quiz">3 小测试</button><button data-h="#/vibe">4 vibecoding</button><button data-h="#/">首页（四件版）</button><button data-h="#/today">今天</button><button data-h="#/cases">案例</button>
+    <a id="open" href="站点/index.html?all#/quiz" target="_blank">新窗口打开 ↗</a>
+  </div>
+  <iframe id="f" src="站点/index.html?all#/quiz" title="四件东西"></iframe>
+  <p class="note" style="margin-top:14px">这里嵌的是带「?all」的站点，四件全开；给她的正式入口是不带 ?all 的，只显示后两件。里面的人数、评论、线索都是演示假数据；接入 AI 钥匙后带「真」字的按钮才真跑。雷达只记链接和标题，不下载任何素材。</p>
+
+  
+  <p class="foot">红线：不用她的脸和声音；不碰她的工作；不收集粉丝个人信息。</p>
+</main>
+<script>
+  const f = document.getElementById('f'), tabs = document.getElementById('tabs'), open = document.getElementById('open');
+  const go = h => { f.src = '站点/index.html?all' + h; open.href = '站点/index.html?all' + h; tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.h === h)); };
+  tabs.querySelectorAll('button').forEach(b => b.onclick = () => go(b.dataset.h));
+  document.querySelectorAll('[data-go]').forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.go); f.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+</script>
+</body>
+</html>
